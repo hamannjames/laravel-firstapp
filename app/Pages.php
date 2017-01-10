@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Pages extends Model
 {
@@ -12,4 +13,14 @@ class Pages extends Model
         'published_at',
         'slug'
     ];
+
+    protected $dates = ['published_at'];
+
+    public function scopePublished($query) {
+        $query->where('published_at', '<=', Carbon::now());
+    }
+
+    public function setPublishedAtAttribute($date) {
+        $this->attributes['published_at'] = Carbon::parse($date);
+    }
 }

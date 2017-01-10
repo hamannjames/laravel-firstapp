@@ -4,11 +4,12 @@ namespace App\Http\Controllers;
 
 use Request;
 use Illuminate\Support\Str;
+use Carbon\Carbon;
 
 class PagesController extends Controller
 {
     public function index() {
-        $pages = \App\Pages::latest()->get();
+        $pages = \App\Pages::latest('published_at')->published()->get();
         return view('pages.index', compact('pages'));
     }
 
