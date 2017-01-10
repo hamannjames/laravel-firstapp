@@ -13,6 +13,8 @@
 
 Route::get('/', 'baseController@index');
 
-Route::get('/pages', 'PagesController@index');
-Route::get('/pages/{slug}', 'PagesController@slug');
-Route::get('/pages/create', 'PagesController@create')->name('create');
+//Route::get('/pages', 'PagesController@index');
+//Route::get('/pages/{slug}', 'PagesController@slug');
+//Route::get('/pages/create', 'PagesController@create');
+
+Route::resource('pages', 'PagesController');

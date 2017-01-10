@@ -9,6 +9,7 @@ class Pages extends Model
     protected $fillable = [
         'title',
         'content',
-        'published_at'
+        'published_at',
+        'slug'
     ];
 }

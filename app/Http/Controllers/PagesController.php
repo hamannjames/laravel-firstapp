@@ -2,21 +2,30 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Request;
+use Illuminate\Support\Str;
 
 class PagesController extends Controller
 {
     public function index() {
-        $pages = \App\Pages::all();
+        $pages = \App\Pages::latest()->get();
         return view('pages.index', compact('pages'));
     }
 
-    public function slug($slug) {
+    public function show($slug) {
         $page = \App\Pages::where('slug', $slug)->firstOrFail();
         return view('pages.single', compact('page'));
     }
 
     public function create() {
-        return 'hello';
+        return view('pages.create');
+    }
+
+    public function store() {
+        $input = Request::all();
+        $input['slug'] = str_slug($input['title'], '-');
+        \App\Pages::create($input);
+
+        return redirect('pages');
     }
 }
